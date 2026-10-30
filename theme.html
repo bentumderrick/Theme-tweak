@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillful Skills</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            height: 100dvh;
+            padding: 10px;
+            background: radial-gradient(rgb(6, 6, 56), rgb(7, 7, 27));
+        }
+
+        nav {
+            height: 30px;
+            width: 100%;
+            border-bottom: 1px solid gray;
+          backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .block_a {
+            display: block;
+            width: fit-content;
+            padding: 3px;
+            height: fit-content;
+        }
+
+        .right_nav {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            transition: 0.34s all ease-in-out;
+
+        }
+
+        a:hover {
+            background: radial-gradient(red, rgb(110, 127, 182));
+            border-radius: 5px;
+            color: rgb(118, 24, 60);
+            animation: radial 2s ease-in-out infinite;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border: 1px solid grey;
+            transform: scale(1.2);
+            transition: 34s all ease-in-out;
+        }
+        @keyframes radial {
+            0%{
+                 border-radius: 5px;
+                background: radial-gradient(red 0%, rgb(110, 127, 182) 10%); 
+                 background-clip: text;
+            -webkit-text-fill-color: transparent;
+            }
+             30%{
+                 border-radius: 5px;
+                background: radial-gradient(red 20%, rgb(110, 127, 182) 40%); 
+                 background-clip: text;
+            -webkit-text-fill-color: transparent;
+            }
+            50%{
+                 border-radius: 0px;
+background: radial-gradient(circle at center, red 40%, rgb(110, 127, 182) 60% );
+ background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+          80%{
+                 border-radius: 5px;
+background: radial-gradient(circle at center, red 60%, rgb(110, 127, 182) 80% );
+ background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+          100%{
+             border-radius: 5px;
+background: radial-gradient(circle at center, red 90%, rgb(110, 127, 182) 100% );
+ background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        }
+        section{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            flex-direction: column;
+           align-self: center;
+           min-height: 100dvh;
+              color: white;
+        }
+         section{
+            transform: translateX(-400px);
+            opacity: 0;
+        }
+       .fade_in{
+        animation: fade_in 1s ease-in-out both;
+
+       }
+       @keyframes fade_in {
+        from{
+             transform: translateX(-400px);
+            opacity: 0;
+        }
+        to{
+                transform: translateX(0);
+            opacity: 1;
+        }
+       }
+            </style>
+</head>
+
+<body>
+    <nav>
+        <div><a class="block_a" href="#">Home</a></div>
+        <div class="right_nav"><a class="block_a" href="#">Contact</a><a class="block_a" href="#">About</a></div>
+    </nav>
+<main>
+    <section id="section">
+        <h1 style="text-align: center;">Welcome to theme Tweak</h1>
+        <p style="font-size: 0.8em; text-align: center;">A place to tweak cool themes to code licking perfection</p>
+        <p style="mix-blend-mode: difference; text-align: center; color: rgb(219, 86, 86);">Select a color, for a codetacular look. Lets test your creativity:</p>
+        <div style="width: 100%; display: flex; justify-content: center; gap: 20px;">
+        <input id="first_color" type="color">
+        <input id="second_color" type="color"></div>
+      <div style="border: 1px solid red; display: flex; justify-content: center; gap: 10px;">
+       
+        <div style="display: flex;  flex-direction: row;"><p style="display: block;">First color range: </p> <input  id="first_color_range"  style="display: block;" type="range"></div>
+         <div  style="display: flex;  flex-direction: row;"><p style="display: block;">Second color range: </p> <input id="second_color_range" style="display: block;" type="range"></div>
+      
+      </div>
+    </section>
+</main>
+<script>
+  
+const section = document.getElementById("section");
+const colors = document.querySelectorAll("input");
+if(localStorage.getItem("theme")){
+  const data = JSON.parse(localStorage.getItem("theme"));
+
+   let fcolor = document.getElementById("first_color");
+    let scolor = document.getElementById("second_color");
+    fcolor.value = data[0];
+  scolor.value = data[1];
+  let fprogress = document.getElementById("first_color_range");
+ let sprogress = document.getElementById("second_color_range");
+  fprogress.value = `${data[2]}`;
+sprogress.value = `${data[3]}`;
+    document.body.style.background = `radial-gradient(circle at center, ${data[0]} ${data[2]}%, ${data[1]} ${data[3]}% `;
+}
+colors.forEach((color) => {
+    color.addEventListener("change", change_background)
+})
+  function save(theme){
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }
+function change_background(){
+     let first_color = document.getElementById("first_color").value;
+    let second_color = document.getElementById("second_color").value;
+   let first_color_progress = document.getElementById("first_color_range").value;
+ let second_color_progress = document.getElementById("second_color_range").value;
+    document.body.style.background = `radial-gradient(circle at center, ${first_color} ${first_color_progress}%, ${second_color} ${second_color_progress}% `;
+  const theme = [
+    first_color, second_color, first_color_progress, second_color_progress
+  ];
+save(theme);
+}
+function come_in(){
+    section.classList.add("fade_in");
+}
+window.addEventListener("load", come_in);
+</script>
+</body>
+
+</html>
